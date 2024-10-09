@@ -1,0 +1,13 @@
+deployments:
+  - name: processing
+    entrypoint: flows/processing_file/flow.py:flow_func
+    work_pool:
+      name: worker
+      work_queue_name: default
+    triggers:
+      - name: Run when file-0 exists
+        type: event
+        expect:
+          - file.file-0.ready
+        posture: Reactive
+        threshold: 1
