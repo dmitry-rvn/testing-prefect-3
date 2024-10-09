@@ -1,0 +1,24 @@
+.common_params: &common_params
+  entrypoint: flows/check_table/flow.py:flow_func
+  concurrency_limit: 1
+  collision_strategy: CANCEL_NEW
+  work_pool:
+    name: worker
+    work_queue_name: default
+  schedules:
+    - cron: 0 7 * * *
+      timezone: 'Europe/Minsk'
+  is_schedule_active: True
+
+deployments:
+  - name: check-table-1
+    description: Check readiness of table-1
+    parameters:
+      table: table-1
+    <<: *common_params
+
+  - name: check-table-2
+    description: Check readiness of table-2
+    parameters:
+      table: table-2
+    <<: *common_params

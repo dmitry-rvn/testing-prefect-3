@@ -1,0 +1,15 @@
+deployments:
+  - name: processing
+    entrypoint: flows/processing/flow.py:flow_func
+    work_pool:
+      name: worker
+      work_queue_name: default
+    triggers:
+      - name: Run processing after tables are ready
+        type: event
+        expect:
+          - table.table-2.ready
+          - table.table-1.ready
+        posture: Reactive
+        threshold: 2
+        within: 28800.0
