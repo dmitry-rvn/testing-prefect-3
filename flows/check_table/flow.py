@@ -22,6 +22,6 @@ def flow_func(table: str, skip_if_ran_today: bool = True):
             return Cancelled()
 
     check(table)
-    resource = f'table.{table}'
+    resource = f'dwh.{table}'
     event = f'{resource}.ready'
     emit_event(event=event, resource={'prefect.resource.id': resource})
