@@ -1,0 +1,19 @@
+.common_params: &common_params
+  entrypoint: flows/file_sensoring/flow.py:flow_func
+  concurrency_limit: 1
+  collision_strategy: CANCEL_NEW
+  work_pool:
+    name: worker
+    work_queue_name: default
+  schedules:
+    - cron: '0/10 8-18 * * MON-FRI'
+      timezone: 'Europe/Minsk'
+  is_schedule_active: True
+
+deployments:
+  - name: check-file-0
+    description: Check file-0 existence
+    parameters:
+      filepath: flows/file_sensoring/file_to_wait.txt
+      resource_key: file-0
+    <<: *common_params
