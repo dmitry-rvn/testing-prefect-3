@@ -12,4 +12,4 @@ deployments:
           - dwh.table-1.ready
         posture: Reactive
         threshold: 2
-        within: 28800.0
+        within: 28800
