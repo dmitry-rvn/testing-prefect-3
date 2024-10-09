@@ -16,7 +16,6 @@ deployments:
     parameters:
       table: table-1
     <<: *common_params
-
   - name: check-table-2
     description: Check readiness of table-2
     parameters:
