@@ -14,3 +14,7 @@ Disable prompts:
 ```bash
 prefect --no-prompt deploy --prefect-file flows\check_table\deployment.yaml --all
 ```
+
+---
+
+Upgrade to Prefect 3: https://docs.prefect.io/3.0/resources/upgrade-to-prefect-3
