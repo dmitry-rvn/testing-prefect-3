@@ -1,11 +1,12 @@
-from prefect import flow
+from prefect import flow, task
 
 
-# START_TIME = '09:30'
-# MONTH_DAYS = None
-# WEEK_DAYS = ['MON', 'TUE']
+@task
+def task_func():
+    return 'Task finished'
 
 
 @flow(name='Processing')
 def flow_func():
-    return
+    task_out = task_func()
+    return f'{task_out} and Flow finished'

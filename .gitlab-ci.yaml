@@ -1,7 +1,13 @@
 image: ""  # TODO: use worker image?
 
 stages:
+  - test
   - deploy
+
+test:
+  stage: test
+  script:
+    - pytest tests -v
 
 deploy:
   stage: deploy
