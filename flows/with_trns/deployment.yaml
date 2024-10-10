@@ -1,0 +1,6 @@
+deployments:
+  - name: pipe_with_trns
+    entrypoint: flows/with_trns/flow.py:flow_func
+    work_pool:
+      name: worker
+      work_queue_name: default
