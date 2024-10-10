@@ -1,0 +1,17 @@
+variables:
+  PREFECT_API_URL: ""  # TODO: add repo var?
+
+image: ""  # TODO: use worker image?
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  script:
+    - for file in $(git diff --name-only HEAD^ HEAD | grep "deployment.yaml"); do
+        echo "Preparing to deploy: $file";
+        prefect --no-prompt deploy --prefect-file $file --all;
+      done;
+  only:
+    - main
