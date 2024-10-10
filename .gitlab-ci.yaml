@@ -1,4 +1,4 @@
-image: ""  # TODO: use worker image?
+image: "prefecthq/prefect:3.0-python3.12"
 
 stages:
   - validate
