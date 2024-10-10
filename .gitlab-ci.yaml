@@ -9,7 +9,7 @@ validate:
   stage: validate
   script:
     # Loop over all new or modified files
-    - for file in $(git diff --name-only HEAD^ HEAD); do
+    - for file in $(git diff --name-only HEAD main); do
         # if it's deployment file then validate its content
         if [[ "$(basename "$file")" == "deployment.yaml" ]]; then
           echo "Validating deployments in: $file";
@@ -34,7 +34,7 @@ deploy:
     - PREFECT_API_URL=$PREFECT_API_URL
     - python --version && echo "Prefect $(prefect --version)"
     # Loop over all new or modified "deployment.yaml" files and deploy them to Prefect Server
-    - for file in $(git diff --name-only HEAD^ HEAD | grep "deployment.yaml"); do
+    - for file in $(git diff --name-only HEAD main | grep "deployment.yaml"); do
         echo "Preparing to deploy: $file";
         prefect --no-prompt deploy --prefect-file $file --all;
       done;
