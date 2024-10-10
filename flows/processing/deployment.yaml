@@ -1,6 +1,7 @@
 deployments:
   - name: processing
     entrypoint: flows/processing/flow.py:flow_func
+    description: Processing
     work_pool:
       name: worker
       work_queue_name: default
