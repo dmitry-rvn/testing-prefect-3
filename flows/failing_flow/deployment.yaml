@@ -1,0 +1,6 @@
+deployments:
+  - name: fail
+    entrypoint: flows/failing_flow/flow.py:flow_func
+    work_pool:
+      name: worker
+      work_queue_name: default
