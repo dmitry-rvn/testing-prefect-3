@@ -4,7 +4,7 @@
 
 Select and push deployment from file:
 ```bash
-prefect deploy flows\check_table\deployment.yaml
+prefect deploy --prefect-file flows\check_table\deployment.yaml
 ```
 Push **all** deployments from file:
 ```bash
