@@ -16,3 +16,15 @@ def get_today_flow_runs(flow_name: str = None, deployment_name: str = None) -> l
         flow_run_filter=FlowRunFilter(start_time=FlowRunFilterStartTime(after_=datetime.now().date()))
     )
     return flow_runs
+
+
+def generate_flow_run_name():
+    """
+    Generate flow run name.
+    In custom functions you can use also, e.g.:
+        flow_run.flow_name
+        flow_run.parameter (access by keys like in a dict, e.g. `flow_run.parameter['period']`)
+    """
+    timestamp = str(datetime.now()).split('.')[0]
+    deployment_name = deployment.name
+    return f'{deployment_name} [{timestamp}]'
