@@ -8,7 +8,7 @@ deploy:
   script:
     # PREFECT_API_URL needs to be set in project's Settings -> CI/CD -> Variables
     - PREFECT_API_URL=$PREFECT_API_URL
-    - python --version && prefect --version
+    - python --version && echo "Prefect $(prefect --version)"
     # Loop over all new or modified "deployment.yaml" files and deploy them to Prefect Server
     - for file in $(git diff --name-only HEAD^ HEAD | grep "deployment.yaml"); do
         echo "Preparing to deploy: $file";
