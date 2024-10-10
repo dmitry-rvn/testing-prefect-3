@@ -18,3 +18,8 @@ prefect --no-prompt deploy --prefect-file flows\check_table\deployment.yaml --al
 ---
 
 Upgrade to Prefect 3: https://docs.prefect.io/3.0/resources/upgrade-to-prefect-3
+
+After prefect package version is upgraded:
+```bash
+prefect server database upgrade
+```
