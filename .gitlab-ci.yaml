@@ -8,15 +8,17 @@ stages:
 validate:
   stage: validate
   script:
-    # Loop over all new or modified Python modules and validate Flows in them
-    - for file in $(git diff --name-only HEAD^ HEAD | grep "\.py$"); do
-        echo "Validating flows in: $file";
-        python utils/validation/flows.py $file;
-      done;
-    # Loop over all new or modified "deployment.yaml" files and validate their content
-    - for file in $(git diff --name-only HEAD^ HEAD | grep "deployment.yaml"); do
-        echo "Validating deployments in: $file";
-        python utils/validation/deployments.py $file;
+    # Loop over all new or modified files
+    - for file in $(git diff --name-only HEAD^ HEAD); do
+        # if it's deployment file then validate its content
+        if [[ "$(basename "$file")" == "deployment.yaml" ]]; then
+          echo "Validating deployments in: $file";
+          python utils/validation/deployments.py $file;
+        # if it's Python module then validate flows in it
+        elif [[ "$file" == *.py ]]; then
+          echo "Validating flows in: $file";
+          python utils/validation/flows.py $file;
+        fi;
       done;
 
 test:
