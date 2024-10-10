@@ -1,17 +1,27 @@
 image: ""  # TODO: use worker image?
 
 stages:
+  - validate
   - test
   - deploy
+
+validate:
+  stage: validate
+  script:
+    # Loop over all new or modified Python modules and validate Flows in them
+    - for file in $(git diff --name-only HEAD^ HEAD | grep "\.py$"); do
+        echo "Validating flows in: $file";
+        python utils/validation/flows.py $file;
+      done;
+    # Loop over all new or modified "deployment.yaml" files and validate their content
+    - for file in $(git diff --name-only HEAD^ HEAD | grep "deployment.yaml"); do
+        echo "Validating deployments in: $file";
+        python utils/validation/deployments.py $file;
+      done;
 
 test:
   stage: test
   script:
-    # Loop over all new or modified Python modules and validate Flows in them
-    - for file in $(git diff --name-only HEAD^ HEAD | grep "\.py$"); do
-        echo "Validating: $file";
-        python utils/validation.py $file;
-      done;
     # Run unit-tests
     - pytest tests -v
 
