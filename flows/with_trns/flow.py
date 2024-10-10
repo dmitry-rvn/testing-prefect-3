@@ -12,6 +12,7 @@ def download():
 @task
 def backup_old_data():
     logger = get_run_logger()
+    # backup data into temp table
     logger.info('Old data backuped')
 
 
@@ -19,12 +20,14 @@ def backup_old_data():
 def delete_old_data():
     logger = get_run_logger()
     backup_old_data()
+    # delete old data
     logger.info('Old data deleted')
 
 
 @task
 def insert_new_data(fail: bool = False):
     logger = get_run_logger()
+    # insert data
     if fail:
         raise ValueError('Error while inserting data')
     logger.info('Data inserted')
@@ -33,10 +36,11 @@ def insert_new_data(fail: bool = False):
 @insert_new_data.on_commit
 def delete_old_data_backup(txn):
     logger = get_run_logger()
+    # drop temp table
     logger.info('Temp table with old (deleted) data removed')
 
 
-@backup_old_data.on_rollback
+@delete_old_data.on_rollback
 def restore_deleted_data(txn):
     logger = get_run_logger()
     # copy data from temp to original table
